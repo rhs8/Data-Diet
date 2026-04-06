@@ -32,9 +32,22 @@
 
 | View | Charts | Key Interaction |
 |------|--------|-----------------|
-| 📊 Breakdown | Stacked bar · Heatmap matrix · Donut | Hover bars → linked highlight across all charts |
-| 🌐 3D Landscape | Isometric 3D canvas · Radar · Impact meter | Drag to rotate · Click column to inspect food |
-| 🌿 Footprint | Stacked area chart · Substitution cards | Toggle foods to see cumulative impact change |
+| Breakdown | Stacked bar · Heatmap matrix · Donut | Hover bars → linked highlight across all charts |
+| 3D Landscape | Isometric 3D canvas · Radar · Impact meter | Drag to rotate · Click column to inspect food |
+| Footprint | Stacked area chart · Substitution cards | Toggle foods to see cumulative impact change |
+| My logbook | Account, meal log, trends, backup | Local profile and JSON export or import |
+
+## Live site (GitHub Pages)
+
+This repo is static HTML/CSS/JS. You can host it for free on GitHub:
+
+1. Open the repo on GitHub: [rhs8/Data-Diet](https://github.com/rhs8/Data-Diet).
+2. Go to **Settings** (repo menu) → **Pages** (left sidebar).
+3. Under **Build and deployment**, set **Source** to **Deploy from a branch**.
+4. Under **Branch**, choose **`main`** and folder **`/ (root)`**, then click **Save**.
+5. After a minute or two, GitHub shows the site URL at the top of the Pages settings page. It will look like **`https://rhs8.github.io/Data-Diet/`**.
+
+If the site does not load, wait a bit and hard-refresh. The repo must have `index.html` at the root of the `main` branch (this project does).
 
 ## Interactivity Features (rubric)
 
