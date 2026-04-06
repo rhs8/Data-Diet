@@ -3,8 +3,6 @@
 
 **Live demo:** [https://rhs8.github.io/Data-Diet/](https://rhs8.github.io/Data-Diet/)
 
-**Course report:** see [FINAL_REPORT.md](FINAL_REPORT.md) for the full CMPT 467 final write-up (aligned with the current codebase).
-
 ## File Structure
 
 ```
@@ -14,8 +12,7 @@
 ├── icons.js     ← SVG food / nav icons (Lucide-derived)
 ├── main.js      ← D3 charts, 3D canvas, interactivity
 ├── account.js   ← Logbook, auth, trends (localStorage)
-├── README.md
-└── FINAL_REPORT.md  ← CMPT 467 final project report
+└── README.md
 ```
 
 ## How to Run in VS Code
@@ -66,3 +63,7 @@ If the site does not load, wait a bit and hard-refresh. The repo must have `inde
 Subset: Beef, Pork, Poultry, Milk, Rice, Vegetables.
 
 Metrics: GHG Emissions · Land Use · Animal Feed · Processing · Eutrophication.
+
+## Course report (local PDF only)
+
+The final write-up is **not** stored in this repository. On your machine you should have **`FINAL_REPORT.pdf`** in the project folder. To regenerate it from Markdown: run `python3 scripts/md2html.py` (requires `pip3 install markdown`), then print **`FINAL_REPORT_print.html`** to PDF (for example Chrome: open the file, Print, Save as PDF).
