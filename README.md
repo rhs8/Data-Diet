@@ -4,11 +4,12 @@
 ## File Structure
 
 ```
-data-and-diet/
 ├── index.html   ← Open this in your browser
 ├── style.css    ← All styles and CSS variables
 ├── data.js      ← FOODS, METRICS, SUBS constants
-├── main.js      ← All D3 charts and interactivity
+├── icons.js     ← SVG food / nav icons (Lucide-derived)
+├── main.js      ← D3 charts, 3D canvas, interactivity
+├── account.js   ← Logbook, auth, trends (localStorage)
 └── README.md
 ```
 
@@ -21,7 +22,7 @@ data-and-diet/
 3. Browser opens automatically at `http://127.0.0.1:5500`
 
 ### Option B — Direct browser open
-1. Open the `data-and-diet/` folder in your file explorer
+1. Open the project folder in your file explorer
 2. Double-click `index.html`
 > Note: Some browsers block local file JS imports. Use Live Server if charts don't render.
 
