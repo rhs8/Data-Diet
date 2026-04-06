@@ -3,6 +3,8 @@
 
 **Live demo:** [https://rhs8.github.io/Data-Diet/](https://rhs8.github.io/Data-Diet/)
 
+**Course report:** see [FINAL_REPORT.md](FINAL_REPORT.md) for the full CMPT 467 final write-up (aligned with the current codebase).
+
 ## File Structure
 
 ```
@@ -12,7 +14,8 @@
 ├── icons.js     ← SVG food / nav icons (Lucide-derived)
 ├── main.js      ← D3 charts, 3D canvas, interactivity
 ├── account.js   ← Logbook, auth, trends (localStorage)
-└── README.md
+├── README.md
+└── FINAL_REPORT.md  ← CMPT 467 final project report
 ```
 
 ## How to Run in VS Code
