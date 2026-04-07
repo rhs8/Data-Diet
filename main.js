@@ -740,18 +740,20 @@ function paint3D() {
     ctx.globalAlpha = 1;
   });
 
-  // Food names: fixed x-axis strip above bottom chrome (foods = X columns; not projected with rotation)
-  const labelPadX = 40;
-  const labelY = H - 36;
-  const labelSpan = Math.max(40, W - 2 * labelPadX);
+  // Food axis labels (X): mirror metric labels (Z) — same projection, offset past floor edge in Z instead of X
+  const axisOut = 0.08;
+  const foodLabelZ = fz1 + axisOut;
   ctx.font = '600 10px Syne, sans-serif';
   ctx.textAlign = 'center';
   sel.forEach((f, fi) => {
-    const tx = labelPadX + ((fi + 0.5) / Math.max(cols, 1)) * labelSpan;
+    const bx = (fi - (cols - 1) / 2) * spacing;
+    const [lx, ly] = proj(bx, 0, foodLabelZ);
     const labelDim = (S.highlighted || scene3dState.clickedFood) &&
       S.highlighted !== f.id && scene3dState.clickedFood !== f.id;
-    ctx.fillStyle = labelDim ? 'rgba(120, 116, 108, 0.45)' : 'rgba(200, 195, 185, 0.92)';
-    ctx.fillText(f.name, tx, labelY);
+    ctx.globalAlpha = labelDim ? 0.22 : 0.72;
+    ctx.fillStyle = resolveColor(f.color);
+    ctx.fillText(f.name, lx, ly + 4);
+    ctx.globalAlpha = 1;
   });
 
   // Update hint label
