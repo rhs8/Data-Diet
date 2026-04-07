@@ -740,32 +740,18 @@ function paint3D() {
     ctx.globalAlpha = 1;
   });
 
-  // Food names under each column (screen-bottom of column footprint)
+  // Food names: fixed x-axis strip above bottom chrome (foods = X columns; not projected with rotation)
+  const labelPadX = 40;
+  const labelY = H - 36;
+  const labelSpan = Math.max(40, W - 2 * labelPadX);
   ctx.font = '600 10px Syne, sans-serif';
+  ctx.textAlign = 'center';
   sel.forEach((f, fi) => {
-    const bx = (fi - (cols - 1) / 2) * spacing;
-    let maxFloorY = -Infinity;
-    let sumX = 0;
-    let nX = 0;
-    mets.forEach((met, mi) => {
-      const bz = (mi - (rows - 1) / 2) * spacing;
-      [
-        [bx - halfW, 0, bz - halfW],
-        [bx + halfW, 0, bz - halfW],
-        [bx + halfW, 0, bz + halfW],
-        [bx - halfW, 0, bz + halfW],
-      ].forEach(([x0, y0, z0]) => {
-        const [px, py] = proj(x0, y0, z0);
-        sumX += px;
-        nX++;
-        if (py > maxFloorY) maxFloorY = py;
-      });
-    });
+    const tx = labelPadX + ((fi + 0.5) / Math.max(cols, 1)) * labelSpan;
     const labelDim = (S.highlighted || scene3dState.clickedFood) &&
       S.highlighted !== f.id && scene3dState.clickedFood !== f.id;
-    ctx.textAlign = 'center';
     ctx.fillStyle = labelDim ? 'rgba(120, 116, 108, 0.45)' : 'rgba(200, 195, 185, 0.92)';
-    ctx.fillText(f.name, sumX / Math.max(nX, 1), maxFloorY + 14);
+    ctx.fillText(f.name, tx, labelY);
   });
 
   // Update hint label
