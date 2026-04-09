@@ -33,7 +33,7 @@
 
 **Breakdown.** Parallel sets (foods → metrics), heatmap matrix, donut. Hover ribbons for linked highlight across charts.
 
-**3D Landscape.** Isometric 3D canvas, radar, impact meter. Drag to rotate; click a column to inspect food.
+**3D Landscape.** Isometric 3D canvas, radar, impact meter. Drag to rotate; click a **food name** label to inspect metrics.
 
 **Footprint.** Stacked area chart, substitution cards. Toggle foods to see cumulative impact change.
 
@@ -41,20 +41,25 @@
 
 ## Live site (GitHub Pages)
 
-This repo is static HTML/CSS/JS. You can host it for free on GitHub:
+If [https://rhs8.github.io/Data-Diet/](https://rhs8.github.io/Data-Diet/) returns **404**, GitHub is not publishing the site yet. Pick **one** of these:
 
-1. Open the repo on GitHub: [rhs8/Data-Diet](https://github.com/rhs8/Data-Diet).
-2. Go to **Settings** (repo menu) → **Pages** (left sidebar).
-3. Under **Build and deployment**, set **Source** to **Deploy from a branch**.
-4. Under **Branch**, choose **`main`** and folder **`/ (root)`**, then click **Save**.
-5. After a minute or two, GitHub shows the site URL at the top of the Pages settings page. It will look like **`https://rhs8.github.io/Data-Diet/`**.
+### Option A: GitHub Actions (recommended; workflow is in this repo)
 
-If the site does not load, wait a bit and hard-refresh. The repo must have `index.html` at the root of the `main` branch (this project does).
+1. Open [rhs8/Data-Diet](https://github.com/rhs8/Data-Diet) → **Settings** → **Pages**.
+2. Under **Build and deployment**, set **Source** to **GitHub Actions** (not “Deploy from a branch”).
+3. Push to **`main`** (or open **Actions** and run **Deploy GitHub Pages** manually). After the workflow succeeds, the site URL appears on the Pages settings page.
+
+### Option B: Deploy from branch
+
+1. **Settings** → **Pages** → **Source**: **Deploy from a branch**.
+2. **Branch**: **`main`**, folder **`/ (root)`** → **Save**.
+
+Wait a minute, then hard-refresh. `index.html` must stay at the repo root on `main`.
 
 ## Interactivity Features (rubric)
 
 1. **Linked cross-view highlighting:** hovering any food dims it everywhere simultaneously.
-2. **3D click-to-select:** clicking a 3D bar column locks focus and updates radar and impact meter (bidirectional with sidebar).
+2. **3D click-to-select:** clicking a food’s name in the 3D view locks focus and updates radar and impact meter (bidirectional with sidebar).
 3. **Metric filter:** toggling a metric changes *what data is shown* (data-affecting interaction).
 4. **Serving count:** adjusting weekly servings re-computes all chart values live.
 
