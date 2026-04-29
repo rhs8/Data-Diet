@@ -1,4 +1,5 @@
 # Data & Diet: Environmental Footprint Visualization
+
 **CMPT 467 · Group 14 · Rana Hoshyarsadeghi & Ting-Yu Tsai**
 
 **Live demo:** [https://rhs8.github.io/Data-Diet/](https://rhs8.github.io/Data-Diet/)
@@ -13,21 +14,55 @@
 ├── icons.js     ← SVG food / nav icons (Lucide-derived)
 ├── main.js      ← D3 charts, 3D canvas, interactivity
 ├── account.js   ← Logbook, auth, trends (localStorage)
+├── e2e/app.spec.ts      ← Playwright end-to-end tests (10 scenarios)
+├── playwright.config.ts ← Playwright config (local + CI use Chromium)
+├── package.json / package-lock.json  ← Node deps; `npm ci` for CI
+├── .github/workflows/
+│   ├── pages.yml       ← GitHub Pages deploy
+│   └── playwright.yml  ← E2E on push / PR to main
 └── README.md
 ```
 
 ## How to Run in VS Code
 
 ### Option A: Live Server (recommended)
+
 1. Install the **Live Server** extension in VS Code
-   (search "Live Server" by Ritwick Dey in Extensions)
+  (search "Live Server" by Ritwick Dey in Extensions)
 2. Right-click `index.html` → **Open with Live Server**
 3. Browser opens automatically at `http://127.0.0.1:5500`
 
 ### Option B: Direct browser open
+
 1. Open the project folder in your file explorer
 2. Double-click `index.html`
+
 > Note: Some browsers block local file JS imports. Use Live Server if charts don't render.
+
+## End-to-end tests (Playwright)
+
+The repo includes **10 Playwright tests** in `e2e/app.spec.ts`: app shell (title, banner, nav), default Breakdown view, switching among Breakdown / 3D / Footprint / My logbook, food list and bulk select / deselect, parallel sets SVG presence, and metric filter toggles.
+
+**Run locally** (Node 20 recommended, same as CI):
+
+1. `npm ci`
+2. `npx playwright install chromium` (first time only; installs the browser for tests)
+3. `npx playwright test`
+  Add `--ui` for the interactive runner, or `npx playwright show-report` after a run to open the HTML report.
+
+Playwright output (`playwright-report/`, `test-results/`, and related cache dirs) is listed in `.gitignore` so it is not committed.
+
+### GitHub Actions CI
+
+Workflow **Playwright E2E** (`.github/workflows/playwright.yml`) runs on every **push** and **pull request** to `main`: checks out the repo, runs `npm ci`, installs Chromium with system deps on `ubuntu-latest`, then `npx playwright test`. If a run fails, the workflow uploads the **playwright-report** folder as an artifact (kept seven days) so you can download and inspect traces and HTML output from the Actions run page.
+
+### Bug found while writing tests
+
+In **Breakdown**, the parallel sets container `#stacked-svg` becomes visible before D3 finishes appending the first drawable geometry (`path`, `line`, or `rect`). An assertion that fired immediately on “SVG visible, then first child attached” was **flaky** on cold loads (including CI): the box was on the page, but children were not there yet for a short window.
+
+**Expected:** As soon as the chart area is shown, geometry is queryable for testing (or a dedicated “ready” signal exists). **Observed:** A brief delay between the empty SVG and populated paths/lines.
+
+The test now waits up to **15 seconds** for the first geometry node with `toBeAttached`. A stronger product-side fix would be to expose a stable loading state (for example a `data-chart-ready` flag or callback) once the parallel sets render pass completes, so tests and other automation do not depend on timing.
 
 ## Views
 
@@ -47,12 +82,12 @@ If [https://rhs8.github.io/Data-Diet/](https://rhs8.github.io/Data-Diet/) return
 
 1. Open [rhs8/Data-Diet](https://github.com/rhs8/Data-Diet) → **Settings** → **Pages**.
 2. Under **Build and deployment**, set **Source** to **GitHub Actions** (not “Deploy from a branch”).
-3. Push to **`main`** (or open **Actions** and run **Deploy GitHub Pages** manually). After the workflow succeeds, the site URL appears on the Pages settings page.
+3. Push to `**main`** (or open **Actions** and run **Deploy GitHub Pages** manually). After the workflow succeeds, the site URL appears on the Pages settings page.
 
 ### Option B: Deploy from branch
 
 1. **Settings** → **Pages** → **Source**: **Deploy from a branch**.
-2. **Branch**: **`main`**, folder **`/ (root)`** → **Save**.
+2. **Branch**: `**main`**, folder `**/ (root)**` → **Save**.
 
 Wait a minute, then hard-refresh. `index.html` must stay at the repo root on `main`.
 
@@ -64,6 +99,7 @@ Wait a minute, then hard-refresh. `index.html` must stay at the repo root on `ma
 4. **Serving count:** adjusting weekly servings re-computes all chart values live.
 
 ## Data Source
+
 `food_production.csv` is the **Environment Impact of Food Production** dataset (43 food products; Poore & Nemecek–style stage columns). `data.js` embeds the same rows for offline use.
 
 Metrics mapped per kg: **GHG** (Total_emissions), **Land** (m²/kg), **Feed** & **Processing** (supply-chain CO₂ from those stages), **Eutrophication** (gPO₄eq/kg).
