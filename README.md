@@ -1,6 +1,6 @@
 # Data & Diet: Environmental Footprint Visualization
 
-**CMPT 467 · Group 14 · Rana Hoshyarsadeghi & Ting-Yu Tsai**
+**Rana Hoshyarsadeghi & Ting-Yu Tsai**
 
 **Live demo:** [https://rhs8.github.io/Data-Diet/](https://rhs8.github.io/Data-Diet/)
 
