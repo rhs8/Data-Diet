@@ -41,7 +41,9 @@
 
 ## End-to-end tests (Playwright)
 
-The repo includes **10 Playwright tests** in `e2e/app.spec.ts`: app shell (title, banner, nav), default Breakdown view, switching among Breakdown / 3D / Footprint / My logbook, food list and bulk select / deselect, parallel sets SVG presence, and metric filter toggles.
+The repo includes **10 Playwright tests** in `e2e/app.spec.ts`. Playwright uses `testDir: './e2e'`, so there is **no** top-level `tests/` folder—for reviewers on GitHub, open **`e2e/`** and **`.github/workflows/`** on `main`.
+
+Coverage is **UI-focused**: the app is static HTML/JS, served by a local static server during tests; **no HTTP APIs** or backends are called in the suite. The tests hit **navigation and view panels** (Breakdown default, switch to 3D / Footprint / My logbook), **sidebar food list** and **bulk select / deselect** controls, **Breakdown SVG** readiness, and **metric filter** toggles. **Form-heavy flows** (typing into every logbook field, etc.) are **not** covered; My logbook is only opened and the `#account-mount` region is asserted visible.
 
 **Run locally** (Node 20 recommended, same as CI):
 
